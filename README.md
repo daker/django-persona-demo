@@ -1,2 +1,2 @@
-django-personna-demo
+django-persona-demo
 ====================
