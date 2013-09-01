@@ -1,0 +1,36 @@
+{% load browserid %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    {% browserid_css %}
+    {% block extrahead %}{% endblock %}
+</head>
+<body>
+    {% browserid_info %}
+    <div class="container">
+        {% if user.is_authenticated %}
+            {% browserid_logout text='Logout' %}
+        {% else %}
+            {% browserid_login text='Login' color='dark' %}
+        {% endif %}
+
+        {% if messages %}
+        <div>
+            {% for message in messages %}
+                {% autoescape off %}
+                    {{ message|safe }}
+                {% endautoescape %}
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+        {% block sidebar %}{% endblock %}
+
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        {% browserid_js %}
+    </div>
+</body>
+</html>
